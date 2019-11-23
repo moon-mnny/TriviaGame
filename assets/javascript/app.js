@@ -162,11 +162,16 @@ function appendQuestions() {
     var createQuestion = $("<div>").html(
       `<h3>Question ${question.number}</h3>
       <h2>${question.question}</h2>
-      <INPUT TYPE="radio" NAME="${question.number}" VALUE="${question.choises[0].choiseNumber}">${question.choises[0].choice}
-      <INPUT TYPE="radio" NAME="${question.number}" VALUE="${question.choises[1].choiseNumber}">${question.choises[1].choice}
+      <input type="radio" name="${question.number}" value="${question.choises[0].choiseNumber}">${question.choises[0].choice}
+      <input type="radio" name="${question.number}" value="${question.choises[1].choiseNumber}">${question.choises[1].choice}
       <br><br>`
     );
     $("#trivia-questions").append(createQuestion);
+    var $radios = $('input[type="radio"]');
+    $radios.change(function() {
+      console.log("hello");
+    });
+    console.dir($radios);
   });
 }
 function appendSubmit() {
@@ -185,3 +190,10 @@ $("#start").click(function() {
   appendQuestions();
   appendSubmit();
 });
+
+// $('input[NAME="1"]').change(function() {
+//   var checked = $('input[NAME="1"]').filter(function() {
+//     return $(this).prop("checked");
+//   });
+//   console.log(checked.val());
+// });
