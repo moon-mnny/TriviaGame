@@ -1,0 +1,51 @@
+body {
+  background-color: rgb(211, 171, 248);
+}
+header {
+  padding: 10px;
+  justify-content: center;
+  text-align: center;
+  font-family: "Calistoga", cursive;
+  font-size: 35pt;
+  margin: 20px;
+}
+.content {
+  display: flex;
+  justify-content: center;
+}
+button {
+  font-family: "Calistoga", cursive;
+  font-size: 15pt;
+  padding: 10px 30px;
+  background-color: rgb(226, 203, 74);
+  color: white;
+}
+h2 {
+  font-family: "Calistoga", cursive;
+  font-size: 15pt;
+  padding-bottom: 10px;
+  line-height: 1.2;
+}
+h3 {
+  font-size: 9pt;
+  padding-bottom: 5px;
+}
+button.submit-result {
+  margin: 20px;
+  position: fixed;
+  top: 40vh;
+  right: 0;
+}
+#time-remaining {
+  text-align: center;
+  margin: 20px;
+  position: fixed;
+  top: 40vh;
+  left: 0;
+}
+#trivia-questions {
+  font-family: "Roboto", sans-serif;
+  font-size: 12pt;
+  line-height: 120%;
+  max-width: 60%;
+}
