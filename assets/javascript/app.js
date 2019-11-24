@@ -7,7 +7,7 @@ var questions = [
       { choiseNumber: 1, choice: "Insomnia Cafe" },
       { choiseNumber: 2, choice: "Central Perk" }
     ],
-    answer: 1
+    answer: "1"
   },
   {
     number: 2,
@@ -16,7 +16,7 @@ var questions = [
       { choiseNumber: 1, choice: "Atlantic City" },
       { choiseNumber: 2, choice: "Las Vegas" }
     ],
-    answer: 2
+    answer: "2"
   },
   {
     number: 3,
@@ -25,7 +25,7 @@ var questions = [
       { choiseNumber: 1, choice: "20" },
       { choiseNumber: 2, choice: "15" }
     ],
-    answer: 1
+    answer: "1"
   },
   {
     number: 4,
@@ -34,7 +34,7 @@ var questions = [
       { choiseNumber: 1, choice: "Cole Sprouse" },
       { choiseNumber: 2, choice: "Dylan Sprouse" }
     ],
-    answer: 1
+    answer: "1"
   },
   {
     number: 5,
@@ -43,7 +43,7 @@ var questions = [
       { choiseNumber: 1, choice: "Season 2" },
       { choiseNumber: 2, choice: "Season 6" }
     ],
-    answer: 1
+    answer: "1"
   },
   {
     number: 6,
@@ -52,7 +52,7 @@ var questions = [
       { choiseNumber: 1, choice: "Monica and Phoebe" },
       { choiseNumber: 2, choice: "Chandler and Rachel" }
     ],
-    answer: 1
+    answer: "1"
   },
   {
     number: 7,
@@ -61,7 +61,7 @@ var questions = [
       { choiseNumber: 1, choice: "Alisha May" },
       { choiseNumber: 2, choice: "Hugsy" }
     ],
-    answer: 2
+    answer: "2"
   },
   {
     number: 8,
@@ -70,7 +70,7 @@ var questions = [
       { choiseNumber: 1, choice: "Monica Geller" },
       { choiseNumber: 2, choice: "Rachel Green" }
     ],
-    answer: 1
+    answer: "1"
   },
   {
     number: 9,
@@ -79,7 +79,7 @@ var questions = [
       { choiseNumber: 1, choice: "Marcel" },
       { choiseNumber: 2, choice: "Muriel" }
     ],
-    answer: 2
+    answer: "2"
   },
   {
     number: 10,
@@ -88,7 +88,7 @@ var questions = [
       { choiseNumber: 1, choice: "Barry" },
       { choiseNumber: 2, choice: "Paolo" }
     ],
-    answer: 1
+    answer: "1"
   },
   {
     number: 11,
@@ -97,7 +97,7 @@ var questions = [
       { choiseNumber: 1, choice: "Rosa" },
       { choiseNumber: 2, choice: "Rosita" }
     ],
-    answer: 2
+    answer: "2"
   },
   {
     number: 12,
@@ -107,7 +107,7 @@ var questions = [
       { choiseNumber: 1, choice: "Mary Angela" },
       { choiseNumber: 2, choice: "Mary Therese" }
     ],
-    answer: 1
+    answer: "1"
   },
   {
     number: 13,
@@ -116,7 +116,7 @@ var questions = [
       { choiseNumber: 1, choice: "Data analyst" },
       { choiseNumber: 2, choice: "IT procurements manager" }
     ],
-    answer: 2
+    answer: "2"
   },
   {
     number: 14,
@@ -125,16 +125,16 @@ var questions = [
       { choiseNumber: 1, choice: "Chandler" },
       { choiseNumber: 2, choice: "Joey" }
     ],
-    answer: 1
+    answer: "1"
   },
   {
     number: 15,
     question: "What caused the fire in Phoebe and Rachel’s apartment?",
     choises: [
-      { choiseNumber: 1, choice: "Rachel’s hair straightener”" },
+      { choiseNumber: 1, choice: "Rachel’s hair straightener" },
       { choiseNumber: 2, choice: "Phoebe’s candles" }
     ],
-    answer: 1
+    answer: "1"
   }
 ];
 var time = 90;
@@ -145,17 +145,72 @@ function countDown() {
 }
 function stopCountDown() {
   clearInterval(interValid);
+  showResult();
 }
 function decrement() {
   time--;
   $("#time-remaining").html(`<h2>Time Remaining<br><br> ${time} Seconds</h2>`);
   if (time === 0) {
+    answerCheck();
     stopCountDown();
-    showResult();
+    $("#submit").empty();
+    $("#trivia-questions").empty();
+    $("#time-remaining").empty();
+    appendRestart();
   }
 }
 function showResult() {
-  $("#result").html("");
+  var createDiv = $("<div>");
+  createDiv.addClass("result-div");
+  var p = $("<p>");
+  var createImg = $("<img>");
+  createImg.addClass("result-img");
+  if (count <= 5) {
+    console.log("3rd");
+    p.html(
+      `You got the ${count} right! <br>You've probably binge a few episodes on Netflix,<br> but you're not totally ~obsessed~ with the show.<br> Study up!`
+    );
+    createImg.attr(
+      "src",
+      "https://media.giphy.com/media/eJS4WUQ7MkNKx3qxPN/giphy.gif"
+    );
+  } else if (count <= 10) {
+    console.log("2nd");
+    p.html(
+      `You got the ${count} right! <br>You're a casual Friends fan, but not quite an expert yet.<br> Don't worry — just cuddle up on your couch and catch up on a few seasons.`
+    );
+    createImg.attr(
+      "src",
+      "https://media.giphy.com/media/lI6nHr5hWXlu0/giphy.gif"
+    );
+  } else {
+    console.log("1st");
+    p.html(
+      `You got the ${count} right! <br>Congratulations, you're a Friends trivia pro!<br> You're basically a part of the gang at this point.`
+    );
+    createImg.attr(
+      "src",
+      "https://media.giphy.com/media/lfmYxOkGpNtEk/giphy.gif"
+    );
+  }
+  createDiv.append(createImg);
+  createDiv.append(p);
+  $("#result").append(createDiv);
+}
+function answerCheck() {
+  questions.forEach(function(question) {
+    var allInput = $(`input[name="${question.number}"]`);
+    console.log(allInput);
+    var userChoice = $(`input[name="${question.number}"]`).filter(function() {
+      return this.checked;
+    });
+    var userChoiceValue = userChoice.val();
+    console.log(userChoiceValue);
+    if (userChoiceValue === question.answer) {
+      count++;
+      console.log(count);
+    }
+  });
 }
 function appendQuestions() {
   questions.forEach(function(question) {
@@ -167,11 +222,6 @@ function appendQuestions() {
       <br><br>`
     );
     $("#trivia-questions").append(createQuestion);
-    var $radios = $('input[type="radio"]');
-    $radios.change(function() {
-      console.log("hello");
-    });
-    console.dir($radios);
   });
 }
 function appendSubmit() {
@@ -179,6 +229,12 @@ function appendSubmit() {
   submitButton.addClass("submit-result");
   submitButton.text("Submit");
   $("#submit").append(submitButton);
+}
+function appendRestart() {
+  var restartButton = $("<button>");
+  restartButton.addClass("submit-result");
+  restartButton.text("Restart");
+  $("#restart").append(restartButton);
 }
 function removeElement(elementId) {
   var element = document.getElementById(elementId);
@@ -190,10 +246,18 @@ $("#start").click(function() {
   appendQuestions();
   appendSubmit();
 });
-
-// $('input[NAME="1"]').change(function() {
-//   var checked = $('input[NAME="1"]').filter(function() {
-//     return $(this).prop("checked");
-//   });
-//   console.log(checked.val());
-// });
+$("#submit").click(function() {
+  answerCheck();
+  stopCountDown();
+  $("#submit").empty();
+  $("#trivia-questions").empty();
+  $("#time-remaining").empty();
+  appendRestart();
+});
+$("#restart").click(function() {
+  $(".result-div").empty();
+  $("#restart").empty();
+  countDown();
+  appendQuestions();
+  appendSubmit();
+});
